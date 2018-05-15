@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <title>Desafío Front End</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/starwars-glyphicons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="menu">
+            <ul>
+                <li>Evaluación Front-end</li>
+                <li>Diego Pajuelo Menacho</li>
+            </ul>
+        </nav>
+    </header>
+
+    <br>
+    <br>
+
+    <div class="contenedor">
+
+        <h3>Ejercicio 1</h3>
+
+        <p >Dado el siguiente arreglo de números enteros</p>
+        <p class="arreglo">[13, 42, 565, 1, 26, 75]</p>
+
+        <ul class="puntos">
+            <li>Obtener el mayor número impar del arreglo
+                <button class="btn" onclick="ejercicio1()">Ejecutar</button>
+            </li>
+            <p id="eje1"></p>
+            <li>Obtener el menor número del arreglo
+                <button class="btn" onclick="ejercicio2()">Ejecutar</button>
+                <p id="eje2"></p>
+            </li>
+            <li>Obtener el segundo mayor número del arreglo
+                <button class="btn" onclick="ejercicio3()">Ejecutar</button>
+                <p id="eje3"></p>
+            </li>
+        </ul>
+
+        <br>
+        <h3>Ejercicio 2</h3>
+        <p>Usando la librería Javascript de tu preferencia, realiza una petición Ajax a la siguiente URL
+            <a href="https://swapi.co/api/people/">https://swapi.co/api/people/</a>, los datos que devuelve dicha API son los nombres de los personajes de Star Wars.</p>
+        <p>Con los datos que obtengas, deberás realizar lo siguiente:</p>
+
+        <ul class="puntos">
+            <li>Avatar o icono del personaje (usar <a href="http://starwarsglyphicons.com/#getstarted">http://starwarsglyphicons.com/#getstarted</a>)</li>
+            <li>Nombre</li>
+            <li>Altura</li>
+            <li>Color de Cabello</li>
+            <li>Cumpleaños</li>
+            <li>Nombre de su planeta de origen (se deberá hacer una petición Ajax adicional).</li>
+        </ul>
+
+        <p>La maquetación se deberá hacer sin uso de frameworks, usar etiquetas semánticas donde consideres conveniente, debe soportar resoluciones desde 320px en adelante y verse bien en Google Chrome, Firefox y Microsoft Edge.</p>
+
+        
+        <div id="cont-starwars">
+            <!--<ul class="users"></ul>-->
+        </div>
+
+
+    </div>
+
+
+    <script src="js/index.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+
+    <script type="text/javascript">
+        var list = '';
+        var arraysw = $('</li>');
+        var Objul = $('<ul></ul>');
+        var icons = [ {id:"0", name:"lukeskywalker"},
+            {id:"1", name:"c3po"},
+            {id:"2", name:"r2d2"},
+            {id:"3", name:"darthvader"},
+            {id:"4", name:"leia"},
+            {id:"5", name:"deathtrooper"},
+            {id:"6", name:"quigonjinn"},
+            {id:"7", name:"bb8-4"},
+            {id:"8", name:"bobafett "},
+            {id:"9", name:"obiwankenobi"}     
+            ];
+
+        $.ajax({
+            url: "https://swapi.co/api/people/",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+
+                for (var i in data.results) {
+                    
+                    var Objli = $('<li></li>');
+                    var Obja = $('<a></a>');
+
+                    Objul.addClass("starwars");
+
+                    Obja.html('<i class="swg swg-3x swg-' + icons[i].name+ '"></i>' + '<br>' + 'Nombre: ' + data.results[i].name + ' <br>' + 'Altura: ' + data.results[i].height  + ' <br>' + 'Color de cabello: '  +  data.results[i].hair_color  + ' <br>' + 'Cumpleaños: ' +  data.results[i].birth_year);
+                    Objli.append(Obja);
+
+                    Objul.append(Objli);
+
+                    $('#cont-starwars').append(Objul);
+
+                }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
